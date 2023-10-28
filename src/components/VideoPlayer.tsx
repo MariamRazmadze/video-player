@@ -22,7 +22,13 @@ export default function VideoPlayer() {
       }
     }
   };
-
+  const handleRestart = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
   const handleFastForward = () => {
     if (videoRef.current) {
       videoRef.current.currentTime += 10;
@@ -60,6 +66,7 @@ export default function VideoPlayer() {
             {isPlaying ? "Pause" : "Play"}
           </button>
           <button onClick={handleFastForward}>Fast Forward</button>
+          <button onClick={handleRestart}>Restart</button>
           <ProgressBar>
             <ProgressBarFill $progress={progress}></ProgressBarFill>
           </ProgressBar>
