@@ -41,6 +41,14 @@ export default function VideoPlayer() {
     }
   };
 
+  const handleFullscreen = () => {
+    if (videoRef.current) {
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      }
+    }
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (videoRef.current) {
@@ -67,6 +75,7 @@ export default function VideoPlayer() {
           </button>
           <button onClick={handleFastForward}>Fast Forward</button>
           <button onClick={handleRestart}>Restart</button>
+          <button onClick={handleFullscreen}>Fullscreen</button>
           <ProgressBar>
             <ProgressBarFill $progress={progress}></ProgressBarFill>
           </ProgressBar>
