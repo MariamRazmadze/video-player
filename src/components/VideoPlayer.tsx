@@ -10,6 +10,7 @@ export default function VideoPlayer() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [volume, setVolume] = useState(1);
 
   const handlePlayPause = () => {
     if (videoRef.current) {
@@ -49,6 +50,13 @@ export default function VideoPlayer() {
     }
   };
 
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (videoRef.current) {
+      videoRef.current.volume = Number(e.target.value);
+      setVolume(Number(e.target.value));
+    }
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (videoRef.current) {
@@ -76,6 +84,14 @@ export default function VideoPlayer() {
           <button onClick={handleFastForward}>Fast Forward</button>
           <button onClick={handleRestart}>Restart</button>
           <button onClick={handleFullscreen}>Fullscreen</button>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+          />
           <ProgressBar>
             <ProgressBarFill $progress={progress}></ProgressBarFill>
           </ProgressBar>
